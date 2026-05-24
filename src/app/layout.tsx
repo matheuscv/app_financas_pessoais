@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className="h-full antialiased" suppressHydrationWarning>
-      <body className={`${geist.className} min-h-full flex flex-col`}>
+      <body className={`${geist.className} min-h-full flex flex-col`} suppressHydrationWarning>
         <Providers>
           {children}
           <Toaster />

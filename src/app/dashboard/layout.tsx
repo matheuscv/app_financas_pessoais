@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { Sidebar } from "@/components/layout/sidebar"
-import { Toaster } from "@/components/ui/sonner"
 
 export default async function DashboardLayout({
   children,
@@ -21,7 +20,6 @@ export default async function DashboardLayout({
       <main className="flex-1 overflow-auto">
         <div className="p-4 md:p-8 max-w-7xl mx-auto">{children}</div>
       </main>
-      <Toaster richColors position="top-right" />
     </div>
   )
 }
