@@ -74,13 +74,13 @@ function NavContent({
         })}
       </nav>
 
-      <div className="p-4 border-t space-y-2">
-        <div className="flex items-center justify-between px-3">
+      <div className="p-4 border-t space-y-1">
+        <div className="px-3 mb-2">
           <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
-          <ThemeToggle />
         </div>
+        <ThemeToggle variant="sidebar" />
         <form action={logout}>
-          <Button variant="ghost" size="sm" className="w-full justify-start gap-2 text-slate-600">
+          <Button variant="ghost" size="sm" className="w-full justify-start gap-2 text-slate-600 dark:text-slate-400">
             <LogOut className="h-4 w-4" />
             Sair
           </Button>
@@ -96,7 +96,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
   return (
     <>
       {/* Mobile */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b px-4 py-3 flex items-center gap-3">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-b px-4 py-3 flex items-center gap-3">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -107,12 +107,13 @@ export function Sidebar({ userEmail }: SidebarProps) {
             <NavContent userEmail={userEmail} onNavigate={() => setOpen(false)} />
           </SheetContent>
         </Sheet>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-1">
           <div className="bg-blue-600 p-1.5 rounded-md">
             <TrendingUp className="h-4 w-4 text-white" />
           </div>
           <span className="font-bold">FinançasPessoais</span>
         </div>
+        <ThemeToggle />
       </div>
 
       {/* Desktop */}
