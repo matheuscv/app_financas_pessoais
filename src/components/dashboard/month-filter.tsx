@@ -29,7 +29,7 @@ export function MonthFilter({ currentMonth, currentYear }: MonthFilterProps) {
   }
 
   return (
-    <div className="flex items-center gap-2 bg-white border rounded-lg px-3 py-2">
+    <div className="flex items-center gap-2 bg-background text-foreground border rounded-lg px-3 py-2">
       <Button variant="ghost" size="icon" className="h-7 w-7" onClick={prev}>
         <ChevronLeft className="h-4 w-4" />
       </Button>
