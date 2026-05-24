@@ -47,7 +47,7 @@ export function TransactionTable({
 
   if (transactions.length === 0) {
     return (
-      <div className="bg-white rounded-lg border py-16 text-center">
+      <div className="bg-background rounded-lg border py-16 text-center">
         <p className="text-muted-foreground text-sm">Nenhuma transação encontrada</p>
         <p className="text-muted-foreground text-xs mt-1">
           Ajuste os filtros ou adicione uma nova transação
@@ -58,10 +58,10 @@ export function TransactionTable({
 
   return (
     <>
-      <div className="bg-white rounded-lg border overflow-hidden">
+      <div className="bg-background rounded-lg border overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-50">
+            <TableRow className="bg-muted/50">
               <TableHead>Descrição</TableHead>
               <TableHead className="hidden sm:table-cell">Categoria</TableHead>
               <TableHead className="hidden md:table-cell">Data</TableHead>
@@ -72,12 +72,12 @@ export function TransactionTable({
           </TableHeader>
           <TableBody>
             {transactions.map((t) => (
-              <TableRow key={t.id} className="hover:bg-slate-50">
+              <TableRow key={t.id} className="hover:bg-muted/50">
                 <TableCell className="font-medium">
                   <div className="flex items-center gap-2">
                     <div
                       className={`p-1 rounded-full ${
-                        t.type === "receita" ? "bg-emerald-50" : "bg-red-50"
+                        t.type === "receita" ? "bg-emerald-50 dark:bg-emerald-950" : "bg-red-50 dark:bg-red-950"
                       }`}
                     >
                       {t.type === "receita" ? (
@@ -107,8 +107,8 @@ export function TransactionTable({
                     variant={t.type === "receita" ? "default" : "destructive"}
                     className={
                       t.type === "receita"
-                        ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-100"
-                        : "bg-red-100 text-red-700 hover:bg-red-100"
+                        ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-400 dark:hover:bg-emerald-950"
+                        : "bg-red-100 text-red-700 hover:bg-red-100 dark:bg-red-950 dark:text-red-400 dark:hover:bg-red-950"
                     }
                   >
                     {t.type === "receita" ? "Receita" : "Despesa"}
@@ -133,7 +133,7 @@ export function TransactionTable({
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-7 w-7 text-red-500 hover:text-red-600 hover:bg-red-50"
+                      className="h-7 w-7 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
                       onClick={() => setDeleteId(t.id)}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
