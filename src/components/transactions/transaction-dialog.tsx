@@ -31,6 +31,34 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { createTransaction, updateTransaction } from "@/lib/actions/transactions"
+
+// Aceita formatos BR (1.000,00) e US (1,000.00) e valores simples (1000)
+function parseCurrency(value: string | number): number {
+  if (typeof value === "number") return value
+  const s = value.trim()
+  if (!s) return 0
+  const hasDot = s.includes(".")
+  const hasComma = s.includes(",")
+  if (hasDot && hasComma) {
+    // Ex: "1.000,50" → remove pontos, troca vírgula por ponto
+    return parseFloat(s.replace(/\./g, "").replace(",", ".")) || 0
+  }
+  if (hasComma) {
+    const afterComma = s.split(",")[1] ?? ""
+    // "5,000" → 3 dígitos após vírgula = separador de milhar
+    if (afterComma.length === 3) return parseFloat(s.replace(",", "")) || 0
+    // "5,50" → decimal BR
+    return parseFloat(s.replace(",", ".")) || 0
+  }
+  if (hasDot) {
+    const afterDot = s.split(".")[1] ?? ""
+    // "5.000" → 3 dígitos após ponto = separador de milhar
+    if (afterDot.length === 3) return parseFloat(s.replace(".", "")) || 0
+    // "5.50" → decimal EN
+    return parseFloat(s) || 0
+  }
+  return parseFloat(s) || 0
+}
 import { CATEGORIES, INCOME_CATEGORIES, EXPENSE_CATEGORIES } from "@/types"
 import type { Transaction, TransactionType } from "@/types"
 
@@ -166,13 +194,18 @@ export function TransactionDialog({
                     <FormLabel>Valor (R$)</FormLabel>
                     <FormControl>
                       <Input
-                        type="number"
-                        step="0.01"
-                        min="0.01"
+                        type="text"
+                        inputMode="decimal"
                         placeholder="0,00"
                         value={field.value || ""}
-                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                        onBlur={field.onBlur}
+                        onChange={(e) => {
+                          const raw = e.target.value
+                          field.onChange(raw)
+                        }}
+                        onBlur={(e) => {
+                          field.onChange(parseCurrency(e.target.value))
+                          field.onBlur()
+                        }}
                         name={field.name}
                         ref={field.ref}
                       />
