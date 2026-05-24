@@ -33,9 +33,9 @@ export function RecentTransactions({ transactions }: RecentTransactionsProps) {
                 }`}
               >
                 {t.type === "receita" ? (
-                  <ArrowUpRight className="h-4 w-4 text-emerald-600" />
+                  <ArrowUpRight className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                 ) : (
-                  <ArrowDownRight className="h-4 w-4 text-red-500" />
+                  <ArrowDownRight className="h-4 w-4 text-red-500 dark:text-red-400" />
                 )}
               </div>
               <div className="flex-1 min-w-0">

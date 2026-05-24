@@ -81,9 +81,9 @@ export function TransactionTable({
                       }`}
                     >
                       {t.type === "receita" ? (
-                        <ArrowUpRight className="h-3 w-3 text-emerald-600" />
+                        <ArrowUpRight className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
                       ) : (
-                        <ArrowDownRight className="h-3 w-3 text-red-500" />
+                        <ArrowDownRight className="h-3 w-3 text-red-500 dark:text-red-400" />
                       )}
                     </div>
                     <div>
