@@ -1,118 +1,64 @@
-"use client"
-
-import { useState } from "react"
 import Link from "next/link"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { Loader2, TrendingUp } from "lucide-react"
-import { toast } from "sonner"
-
+import { Mail, TrendingUp, MailWarning } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { register } from "@/lib/actions/auth"
+import { RegisterForm } from "@/components/auth/register-form"
 
-const schema = z
-  .object({
-    email: z.string().email("E-mail inválido"),
-    password: z.string().min(6, "Mínimo 6 caracteres"),
-    confirmPassword: z.string(),
-  })
-  .refine((d) => d.password === d.confirmPassword, {
-    message: "Senhas não coincidem",
-    path: ["confirmPassword"],
-  })
+export default async function RegisterPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ emailSent?: string }>
+}) {
+  const params = await searchParams
 
-type FormData = z.infer<typeof schema>
+  if (params.emailSent === "true") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 p-4">
+        <Card className="w-full max-w-md shadow-lg">
+          <CardHeader className="text-center space-y-2">
+            <div className="flex justify-center">
+              <div className="bg-blue-600 p-3 rounded-xl">
+                <TrendingUp className="h-6 w-6 text-white" />
+              </div>
+            </div>
+            <div className="flex justify-center mt-2">
+              <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-full">
+                <Mail className="h-8 w-8 text-green-600 dark:text-green-400" />
+              </div>
+            </div>
+            <CardTitle className="text-2xl font-bold">Verifique seu e-mail</CardTitle>
+            <CardDescription>
+              Conta criada com sucesso! Enviamos um link de confirmação para o seu e-mail.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 flex gap-3">
+              <MailWarning className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+              <div className="text-sm text-amber-800 dark:text-amber-300">
+                <p className="font-medium mb-1">Não encontrou o e-mail?</p>
+                <p>Verifique também a pasta de <strong>spam</strong> ou <strong>lixo eletrônico</strong> — às vezes o e-mail de confirmação vai parar lá.</p>
+              </div>
+            </div>
 
-export default function RegisterPage() {
-  const [loading, setLoading] = useState(false)
+            <div className="text-sm text-muted-foreground text-center space-y-1">
+              <p>Após confirmar o e-mail, clique no botão abaixo para entrar.</p>
+            </div>
 
-  const form = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: { email: "", password: "", confirmPassword: "" },
-  })
+            <Button asChild className="w-full">
+              <Link href="/login">Ir para o login</Link>
+            </Button>
 
-  async function onSubmit(data: FormData) {
-    setLoading(true)
-    try {
-      await register(data.email, data.password)
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Erro ao criar conta")
-      setLoading(false)
-    }
+            <p className="text-center text-sm text-muted-foreground">
+              E-mail errado?{" "}
+              <Link href="/register" className="text-blue-600 hover:underline font-medium">
+                Criar nova conta
+              </Link>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="text-center space-y-2">
-          <div className="flex justify-center">
-            <div className="bg-blue-600 p-3 rounded-xl">
-              <TrendingUp className="h-6 w-6 text-white" />
-            </div>
-          </div>
-          <CardTitle className="text-2xl font-bold">Criar conta</CardTitle>
-          <CardDescription>Comece a controlar suas finanças hoje</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>E-mail</FormLabel>
-                    <FormControl>
-                      <Input placeholder="seu@email.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Senha</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirmar senha</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Criar conta
-              </Button>
-            </form>
-          </Form>
-          <p className="text-center text-sm text-muted-foreground mt-4">
-            Já tem conta?{" "}
-            <Link href="/login" className="text-blue-600 hover:underline font-medium">
-              Entrar
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
-    </div>
-  )
+  return <RegisterForm />
 }

@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { logout } from "@/lib/actions/auth"
 
 const navItems = [
@@ -73,9 +74,10 @@ function NavContent({
         })}
       </nav>
 
-      <div className="p-4 border-t">
-        <div className="mb-3 px-3">
+      <div className="p-4 border-t space-y-2">
+        <div className="flex items-center justify-between px-3">
           <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
+          <ThemeToggle />
         </div>
         <form action={logout}>
           <Button variant="ghost" size="sm" className="w-full justify-start gap-2 text-slate-600">

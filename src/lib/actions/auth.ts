@@ -23,7 +23,7 @@ export async function register(email: string, password: string) {
   if (data.session) {
     redirect("/dashboard")
   } else {
-    redirect("/login?message=Verifique+seu+email+para+confirmar+o+cadastro")
+    redirect("/register?emailSent=true")
   }
 }
 

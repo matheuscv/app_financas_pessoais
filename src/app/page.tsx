@@ -2,6 +2,7 @@ import Link from "next/link"
 import { TrendingUp, PieChart, Shield, Download, ArrowRight, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 
 const features = [
   {
@@ -36,8 +37,8 @@ const benefits = [
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <header className="border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="bg-blue-600 p-2 rounded-lg">
@@ -46,6 +47,7 @@ export default function LandingPage() {
             <span className="font-bold text-lg">FinançasPessoais</span>
           </div>
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Button variant="ghost" asChild>
               <Link href="/login">Entrar</Link>
             </Button>
