@@ -48,7 +48,7 @@ export default function LoginPage() {
               <TrendingUp className="h-6 w-6 text-white" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">FinançasPessoais</CardTitle>
+          <CardTitle className="text-2xl font-bold">Minhas Finanças Pessoais</CardTitle>
           <CardDescription>Entre na sua conta para continuar</CardDescription>
         </CardHeader>
         <CardContent>
