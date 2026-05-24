@@ -29,7 +29,7 @@ export function RecentTransactions({ transactions }: RecentTransactionsProps) {
             <div key={t.id} className="flex items-center gap-3">
               <div
                 className={`p-2 rounded-full flex-shrink-0 ${
-                  t.type === "receita" ? "bg-emerald-50" : "bg-red-50"
+                  t.type === "receita" ? "bg-emerald-50 dark:bg-emerald-950" : "bg-red-50 dark:bg-red-950"
                 }`}
               >
                 {t.type === "receita" ? (

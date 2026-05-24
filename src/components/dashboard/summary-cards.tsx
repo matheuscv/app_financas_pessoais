@@ -16,8 +16,8 @@ export function SummaryCards({ totalReceitas, totalDespesas, saldo }: SummaryCar
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Receitas
           </CardTitle>
-          <div className="bg-emerald-50 p-2 rounded-lg">
-            <TrendingUp className="h-4 w-4 text-emerald-600" />
+          <div className="bg-emerald-50 dark:bg-emerald-950 p-2 rounded-lg">
+            <TrendingUp className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
           </div>
         </CardHeader>
         <CardContent>
@@ -30,8 +30,8 @@ export function SummaryCards({ totalReceitas, totalDespesas, saldo }: SummaryCar
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Despesas
           </CardTitle>
-          <div className="bg-red-50 p-2 rounded-lg">
-            <TrendingDown className="h-4 w-4 text-red-500" />
+          <div className="bg-red-50 dark:bg-red-950 p-2 rounded-lg">
+            <TrendingDown className="h-4 w-4 text-red-500 dark:text-red-400" />
           </div>
         </CardHeader>
         <CardContent>
@@ -44,8 +44,8 @@ export function SummaryCards({ totalReceitas, totalDespesas, saldo }: SummaryCar
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Saldo
           </CardTitle>
-          <div className={`p-2 rounded-lg ${saldo >= 0 ? "bg-blue-50" : "bg-orange-50"}`}>
-            <Wallet className={`h-4 w-4 ${saldo >= 0 ? "text-blue-600" : "text-orange-500"}`} />
+          <div className={`p-2 rounded-lg ${saldo >= 0 ? "bg-blue-50 dark:bg-blue-950" : "bg-orange-50 dark:bg-orange-950"}`}>
+            <Wallet className={`h-4 w-4 ${saldo >= 0 ? "text-blue-600 dark:text-blue-400" : "text-orange-500 dark:text-orange-400"}`} />
           </div>
         </CardHeader>
         <CardContent>

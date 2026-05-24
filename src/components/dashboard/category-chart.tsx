@@ -65,7 +65,7 @@ export function CategoryChart({ transactions }: CategoryChartProps) {
             />
             <Legend
               formatter={(value) => (
-                <span className="text-xs text-slate-600">{value}</span>
+                <span className="text-xs text-muted-foreground">{value}</span>
               )}
             />
           </PieChart>
